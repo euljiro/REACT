@@ -1,0 +1,70 @@
+.App {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #eee;
+  padding: 32px;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: aquamarine;
+  }
+}
+
+.container {
+  max-width: 350px;
+  min-height: 80vh;
+  background-color: #fff;
+  padding: 16px;
+  margin: 20px auto;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.title {
+  color: slateblue;
+  text-align: center;
+}
+
+.line {
+  margin: 16px 0px;
+  border: 1px dotted #ddd;
+}
+
+.lists {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.list-item {
+  padding: 16px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.nick-name {
+  padding: 12px;
+  margin: 8px;
+  border-radius: 30px;
+  text-align: center;
+  background-color: aliceblue;
+}
+
+.input-box {
+  display: block;
+  max-width: 320px;
+  min-height: 1vh;
+  padding: 12px 60px;
+  margin: 12px auto;
+}
+
+.btn-box {
+  display: block;
+  margin: 24px auto;
+  padding: 12px 48px;
+  border-radius: 30px;
+  border-style: none;
+  background-color: aquamarine;
+}

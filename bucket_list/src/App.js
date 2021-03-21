@@ -8,6 +8,27 @@ import BucketList from "./BucketList";
 import styled from "styled-components";
 import Detail from "./Detail";
 import NotFound from "./NotFound";
+import {connect} from "react-redux";
+import {loadBucket, createBucket} from "./redux/modules/bucket";
+import { createStore } from 'redux';
+
+const mapStateToProps = (state) => {
+  return {bucket_list: state.bucket.list};
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    load: ()=> {
+      dispatch(loadBucket());
+    },
+
+    create: (bucket)=> {
+      dispatch(createBucket(bucket));
+    }
+  }
+}
+
+
 
 // 클래스형 컴포넌트는 이렇게 생겼습니다!
 class App extends React.Component {
@@ -15,7 +36,7 @@ class App extends React.Component {
     super(props);
     // App 컴포넌트의 state를 정의해줍니다.
     this.state = {
-      list: ["영화관 가기", "매일 책읽기", "수영 배우기"],
+    
     };
     // ref는 이렇게 선언합니다!
     this.text = React.createRef();
@@ -26,16 +47,8 @@ class App extends React.Component {
   }
 
   addBucketList = () => {
-    let list = this.state.list;
     const new_item = this.text.current.value;
-
-    // 리액트에서는 concat으로 배열항목을 합쳐주는 게 좋아요. 아래처럼요!
-    // list = list.concat(new_item);
-    // this.setState({list: list});
-
-    //  이건 가장 편한 배열 합치기 방법입니다.
-    //  ...은 배열 안에 있는 항목을 전부 꺼내서 늘어놓는다는 뜻입니다. (스프레드 문법이라고 불러요.)
-    this.setState({ list: [...list, new_item] });
+    this.props.create(new_item);
   };
 
   // 랜더 함수 안에 리액트 엘리먼트를 넣어줍니다!
@@ -52,9 +65,14 @@ class App extends React.Component {
           <Route
             path="/"
             exact
-            render={(props) => <BucketList list={this.state.list} history={this.props.history}/>}
+            render={(props) => (
+            <BucketList
+            list={this.props.bucket_list}
+            history={this.props.history}
+            />
+            )}
           />
-          <Route path="/detail" component={Detail}/>
+          <Route path="/detail/:index" component={Detail}/>
           <Route render={()=>(<NotFound history={this.props.history}/>)} />
           </Switch>
         </Container>
@@ -98,4 +116,4 @@ const Line = styled.hr`
   border: 1px dotted #ddd;
 `;
 // withRouter 적용
-export default withRouter(App);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
